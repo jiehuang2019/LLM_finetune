@@ -1,6 +1,14 @@
 from transformers import AutoModelForSequenceClassification
 from peft import PeftModel, PeftConfig
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+    DataCollatorWithPadding,
+)
 
+tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 peft_config = PeftConfig.from_pretrained("./lora-bert-sst2")
 base_model = AutoModelForSequenceClassification.from_pretrained(peft_config.base_model_name_or_path)
 model = PeftModel.from_pretrained(base_model, "./lora-bert-sst2")
